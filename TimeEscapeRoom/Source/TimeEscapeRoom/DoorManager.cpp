@@ -31,17 +31,20 @@ void UDoorManager::BeginPlay()
 void UDoorManager::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	UE_LOG(LogTemp, Warning, TEXT("%f DeltaTime"), DeltaTime)
-
+		
 	// Poll the Trigger Volume
-	if (true)
-	{
-		OnOpen.Broadcast();
-	}
-	else
-	{
-		OnClose.Broadcast();
-	}
+	if (false) OnOpen.Broadcast();
+	else OnClose.Broadcast();
+}
+
+bool UDoorManager::isSomeActorOnPlate()
+{
+	// Find all the overlapping actors
+	TArray<AActor*> OverlappingActors;
+	if (!PressurePlate) { return false; }
+	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
+	
+	//TODO find number of overlapping actors, if its greater than 0, return true, else false
+	return false;
 }
 
