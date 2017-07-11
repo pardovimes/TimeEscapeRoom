@@ -46,13 +46,7 @@ bool UDoorManager::isSomeActorOnPlate()
 
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
 	
-	// TODO it should be something like count(array) to get the size, not using a for
-	for (const auto& Actor : OverlappingActors)
-	{
-		numActors++;
-	}
-
-	if (numActors > 0) return true;
+	if (OverlappingActors.Num() > 0) return true;
 	return false;
 }
 
