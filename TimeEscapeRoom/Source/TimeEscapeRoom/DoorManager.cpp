@@ -33,18 +33,26 @@ void UDoorManager::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 		
 	// Poll the Trigger Volume
-	if (false) OnOpen.Broadcast();
+	if (isSomeActorOnPlate()) OnOpen.Broadcast();
 	else OnClose.Broadcast();
 }
 
 bool UDoorManager::isSomeActorOnPlate()
 {
+	if (!PressurePlate) { return false; }
 	// Find all the overlapping actors
 	TArray<AActor*> OverlappingActors;
-	if (!PressurePlate) { return false; }
+	int32 numActors = 0;
+
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
 	
-	//TODO find number of overlapping actors, if its greater than 0, return true, else false
+	// TODO it should be something like count(array) to get the size, not using a for
+	for (const auto& Actor : OverlappingActors)
+	{
+		numActors++;
+	}
+
+	if (numActors > 0) return true;
 	return false;
 }
 
